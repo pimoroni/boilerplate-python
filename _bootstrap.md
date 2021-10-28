@@ -52,6 +52,8 @@ cd library/
 tox
 ```
 
+Make sure your main branch is named "main" or GitHub actions wont run!
+
 ## Examples
 
 Examples should use hyphens and short, descriptive names, ie: `rainbow-larson.py`
