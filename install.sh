@@ -121,7 +121,6 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
-distro_check
 user_check
 
 if [ ! -f "$PYTHON" ]; then
