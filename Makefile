@@ -22,6 +22,12 @@ install:
 uninstall:
 	./uninstall.sh
 
+pytest:
+	tox -e py
+
+qa:
+	tox -e qa
+
 check:
 	@echo "Checking for trailing whitespace"
 	@! grep -IUrn --color "[[:blank:]]$$" --exclude-dir=dist --exclude-dir=.tox --exclude-dir=.git --exclude=PKG-INFO
