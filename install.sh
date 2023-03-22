@@ -132,27 +132,21 @@ PYTHON_VER=`$PYTHON --version`
 
 inform "Installing. Please wait..."
 
-$PYTHON -m pip install --upgrade configparser
+$PYTHON -m pip install --upgrade toml
 
 CONFIG_VARS=`$PYTHON - <<EOF
-from configparser import ConfigParser
-c = ConfigParser()
-c.read('library/setup.cfg')
-p = dict(c['pimoroni'])
-# Convert multi-line config entries into bash arrays
-for k in p.keys():
-    fmt = '"{}"'
-    if '\n' in p[k]:
-        p[k] = "'\n\t'".join(p[k].split('\n')[1:])
-        fmt = "('{}')"
-    p[k] = fmt.format(p[k])
+import toml
+config = toml.load("pyproject.toml")
+p = dict(config['pimoroni'])
+# Convert list config entries into bash arrays
+for k, v in p.items():
+    v = "'\n\t'".join(v)
+    p[k] = f"('{v}')"
 print("""
 LIBRARY_NAME="{name}"
-LIBRARY_VERSION="{version}"
-""".format(**c['metadata']))
+""".format(**config['project']))
 print("""
-PY3_DEPS={py3deps}
-PY2_DEPS={py2deps}
+APT_PACKAGES={apt_packages}
 SETUP_CMDS={commands}
 CONFIG_TXT={configtxt}
 """.format(**p))
@@ -177,7 +171,7 @@ printf "an editor and remove 'exit 1' from below.\n"
 exit 1
 EOF
 
-printf "$LIBRARY_NAME $LIBRARY_VERSION Python Library: Installer\n\n"
+printf "$LIBRARY_NAME Python Library: Installer\n\n"
 
 if $UNSTABLE; then
 	warning "Installing unstable library from source.\n\n"
@@ -188,9 +182,9 @@ fi
 cd library
 
 printf "Installing for $PYTHON_VER...\n"
-apt_pkg_install "${PY3_DEPS[@]}"
+apt_pkg_install "${APT_PACKAGES[@]}"
 if $UNSTABLE; then
-	$PYTHON setup.py install > /dev/null
+	$PYTHON -m pip install .
 else
 	$PYTHON -m pip install --upgrade $LIBRARY_NAME
 fi
