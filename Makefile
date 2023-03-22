@@ -24,9 +24,9 @@ uninstall:
 
 check:
 	@echo "Checking for trailing whitespace"
-	@! grep -IUrn --color "[[:blank:]]$$" --exclude-dir=sphinx --exclude-dir=.tox --exclude-dir=.git --exclude=PKG-INFO
+	@! grep -IUrn --color "[[:blank:]]$$" --exclude-dir=dist --exclude-dir=.tox --exclude-dir=.git --exclude=PKG-INFO
 	@echo "Checking for DOS line-endings"
-	@! grep -lIUrn --color "" --exclude-dir=.tox --exclude-dir=.git --exclude=Makefile
+	@! grep -lIUrn --color "" --exclude-dir=dist --exclude-dir=.tox --exclude-dir=.git --exclude=Makefile
 	@echo "Checking CHANGELOG.md"
 	@cat CHANGELOG.md | grep ^${LIBRARY_VERSION}
 	@echo "Checking ${LIBRARY_NAME}/__init__.py"
