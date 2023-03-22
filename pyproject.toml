@@ -58,12 +58,10 @@ include = [
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"
-
-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
-path = "README.md"
-
-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
-path = "CHANGELOG.md"
+fragments = [
+  { path = "README.md" },
+  { path = "CHANGELOG.md" }
+]
 
 [tool.flake8]
 exclude = [
