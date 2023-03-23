@@ -6,18 +6,20 @@ usage:
 	@echo "Library: ${LIBRARY_NAME}"
 	@echo "Version: ${LIBRARY_VERSION}\n"
 	@echo "Usage: make <target>, where target is one of:\n"
-	@echo "install:       install the library locally from source"
-	@echo "uninstall:     uninstall the local library"
-	@echo "check:         peform basic integrity checks on the codebase"
-	@echo "python-wheels: build python .whl files for distribution"
-	@echo "python-sdist:  build python source distribution"
-	@echo "python-clean:  clean python build and dist directories"
-	@echo "python-dist:   build all python distribution files"
-	@echo "python-testdeploy: build all and deploy to test PyPi"
-	@echo "tag:           tag the repository with the current version"
+	@echo "install:      install the library locally from source"
+	@echo "uninstall:    uninstall the local library"
+	@echo "check:        peform basic integrity checks on the codebase"
+	@echo "build-deps:   install essential python build dependencies"
+	@echo "wheel:        build python .whl files for distribution"
+	@echo "sdist:        build python source distribution"
+	@echo "clean:        clean python build and dist directories"
+	@echo "dist:         build all python distribution files"
+	@echo "testdeploy:   build all and deploy to test PyPi"
+	@echo "deploy:       build all and deploy to PyPi"
+	@echo "tag:          tag the repository with the current version"
 
 install:
-	./install.sh
+	./install.sh --unstable
 
 uninstall:
 	./uninstall.sh
@@ -27,6 +29,9 @@ pytest:
 
 qa:
 	tox -e qa
+
+build-deps:
+	python3 -m pip install build
 
 check:
 	@echo "Checking for trailing whitespace"
@@ -41,20 +46,20 @@ check:
 tag:
 	git tag -a "v${LIBRARY_VERSION}" -m "Version ${LIBRARY_VERSION}"
 
-python-wheels: check
+wheel: check
 	python3 -m build --wheel
 
-python-sdist: check
+sdist: check
 	python3 -m build --sdist
 
-python-clean:
+clean:
 	-rm -r dist
 
-python-dist: python-clean python-wheels python-sdist
+dist: clean wheel sdist
 	ls dist
 
-python-testdeploy: python-dist
+testdeploy: dist
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-python-deploy: python-dist
+deploy: dist
 	twine upload dist/*

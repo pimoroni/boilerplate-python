@@ -90,6 +90,6 @@ ignore = [
 ]
 
 [pimoroni]
-apt_packages = ["rpi.gpio", "changeme"]
+apt_packages = ["python3-rpi.gpio", "python3-smbus"]
 configtxt = []
 commands = []
