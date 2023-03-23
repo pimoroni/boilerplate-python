@@ -5,6 +5,8 @@
 [![PyPi Package](https://img.shields.io/pypi/v/PROJECT_NAME.svg)](https://pypi.python.org/pypi/PROJECT_NAME)
 [![Python Versions](https://img.shields.io/pypi/pyversions/PROJECT_NAME.svg)](https://pypi.python.org/pypi/PROJECT_NAME)
 
+Generated from [the Pimoroni Python Boilerplate](https://github.com/pimoroni/boilerplate-python).
+
 # Pre-requisites
 
 You must enable (delete where appropriate):

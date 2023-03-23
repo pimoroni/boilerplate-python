@@ -1,4 +1,4 @@
-name: Python Tests
+name: Python Build
 
 on:
   pull_request:
@@ -13,6 +13,9 @@ jobs:
       matrix:
         python: [3.8, 3.9]
 
+    env:
+      RELEASE_FILE: ${{ github.event.repository.name }}-${{ github.event.release.tag_name || github.sha }}-py${{ matrix.python }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -24,21 +27,14 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          make test-deps
+          make build-deps
 
-      - name: Run Quality Assurance
+      - name: Build Packages
         run: |
-          make qa
+          make dist
 
-      - name: Run Tests
-        run: |
-          make pytest
-
-      - name: Coverage
-        if: ${{ matrix.python == '3.9' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python -m pip install coveralls
-          coveralls --service=github
-
+      - name: Upload Packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.RELEASE_FILE }}
+          path: dist/
