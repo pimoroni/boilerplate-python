@@ -77,9 +77,8 @@ max-line-length = 200
 [tool.check-manifest]
 ignore = [
     '.stickler.yml',
-    '_bootstrap.sh',
-    '_bootstrap.md',
-    '_bootstrap_remotes.sh',
+    'boilerplate.md',
+    'check.sh',
     'install.sh',
     'uninstall.sh',
     'Makefile',
