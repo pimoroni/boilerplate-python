@@ -8,20 +8,16 @@ on:
 
 jobs:
   test:
-    name: Python ${{ matrix.python }}
+    name: linting & spelling
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python: ['3.9', '3.10', '3.11']
-
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Set up Python ${{ matrix.python }}
+      - name: Set up Python '3,11'
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python }}
+          python-version: '3.11'
 
       - name: Install Dependencies
         run: |
@@ -30,3 +26,7 @@ jobs:
       - name: Run Quality Assurance
         run: |
           make qa
+
+      - name: Run Code Checks
+        run: |
+          make check
