@@ -2,8 +2,10 @@
 
 # This script handles some basic QA checks on the source
 
+NOPOST=$1
 LIBRARY_NAME=`grep -m 1 name pyproject.toml | awk -F" = " '{print substr($2,2,length($2)-2)}'`
-LIBRARY_VERSION=`grep __version__ $LIBRARY_NAME/__init__.py | awk -F" = " '{print substr($2,2,length($2)-2)}'`
+LIBRARY_VERSION=`grep __version__ $LIBRARY_NAME/__init__.py | awk -F" = " '{print substr($2,2,length($2)-2)}' | awk -F "." '{print $1"."$2"."$3}'`
+POST_VERSION=`grep __version__ $LIBRARY_NAME/__init__.py | awk -F" = " '{print substr($2,2,length($2)-2)}' | awk -F "." '{print substr($4,0,length($4))}'`
 
 success() {
 	echo -e "$(tput setaf 2)$1$(tput sgr0)"
@@ -16,6 +18,24 @@ inform() {
 warning() {
 	echo -e "$(tput setaf 1)$1$(tput sgr0)"
 }
+
+while [[ $# -gt 0 ]]; do
+	K="$1"
+	case $K in
+	-p|--nopost)
+		NOPOST=true
+		shift
+		;;
+	*)
+		if [[ $1 == -* ]]; then
+			printf "Unrecognised option: $1\n";
+			exit 1
+		fi
+		POSITIONAL_ARGS+=("$1")
+		shift
+	esac
+done
+
 
 inform "Checking for trailing whitespace..."
 grep -IUrn --color "[[:blank:]]$" --exclude-dir=dist --exclude-dir=.tox --exclude-dir=.git --exclude=PKG-INFO
@@ -53,3 +73,14 @@ if [[ $? -eq 1 ]]; then
     warning "Missing git tag for version ${LIBRARY_VERSION}"
 fi
 printf "\n"
+
+if [[ $NOPOST ]]; then
+    inform "Checking for .postN on library version..."
+    if [[ "$POST_VERSION" != "" ]]; then
+        warning "Found .$POST_VERSION on library version."
+        inform "Please only use these for testpypi releases."
+        exit 1
+    else
+        success "OK"
+    fi
+fi

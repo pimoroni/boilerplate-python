@@ -1,5 +1,5 @@
 LIBRARY_NAME=$(shell grep -m 1 name pyproject.toml | awk -F" = " '{print $$2}')
-LIBRARY_VERSION=$(shell grep __version__ ${LIBRARY_NAME}/__init__.py | awk -F" = " '{print substr($$2,2,length($$2)-2)}')
+LIBRARY_VERSION=$(shell grep __version__ ${LIBRARY_NAME}/__init__.py | awk -F" = " '{print substr($$2,2,length($$2)-2)}' | awk -F"." '{print $$1"."$$2"."$$3}')
 
 .PHONY: usage install uninstall check pytest qa build-deps check tag wheel sdist clean dist testdeploy deploy
 usage:
@@ -43,6 +43,9 @@ qa:
 pytest:
 	tox -e py
 
+nopost:
+	@bash check.sh --nopost
+
 tag:
 	git tag -a "v${LIBRARY_VERSION}" -m "Version ${LIBRARY_VERSION}"
 
@@ -61,5 +64,5 @@ dist: clean wheel sdist
 testdeploy: dist
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-deploy: dist
+deploy: nopost dist
 	twine upload dist/*
