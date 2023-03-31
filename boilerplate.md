@@ -78,7 +78,7 @@ make test-deps
 make pytest
 ```
 
-Make sure your main branch is named "main" or GitHub actions wont run!
+Make sure your main branch is named "main" or GitHub actions won't run!
 
 ## Examples
 

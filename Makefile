@@ -10,7 +10,7 @@ usage:
 	@echo "uninstall:    uninstall the local library"
 	@echo "build-deps:   install essential python build dependencies"
 	@echo "test-deps:    install essential python test dependencies"
-	@echo "check:        peform basic integrity checks on the codebase"
+	@echo "check:        perform basic integrity checks on the codebase"
 	@echo "qa:           run linting and package QA"
 	@echo "pytest:       run python test fixtures"
 	@echo "wheel:        build python .whl files for distribution"

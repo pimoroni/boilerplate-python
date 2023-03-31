@@ -63,7 +63,7 @@ fragments = [
   { path = "CHANGELOG.md" }
 ]
 
-[tool.flake8]
+[tool.ruff]
 exclude = [
     '.tox',
     '.egg',
@@ -72,7 +72,17 @@ exclude = [
     'build',
     'dist'
 ]
-max-line-length = 200
+line-length = 200
+
+[tool.codespell]
+skip = """
+./.tox,\
+./.egg,\
+./.git,\
+./__pycache__,\
+./build,\
+./dist.\
+"""
 
 [tool.check-manifest]
 ignore = [
