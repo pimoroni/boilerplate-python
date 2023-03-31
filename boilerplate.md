@@ -4,7 +4,7 @@ Source: https://github.com/pimoroni/boilerplate-python
 
 This Python Library boilerplate uses `pyproject.toml`, with a `hatchling` back-end.
 
-`tox` is used to manage testing and QA, with `flake8` and `pytest`.
+`tox` is used to manage testing and QA, with `ruff` and `pytest`.
 
 The tooling uses `build` as the front-end, but this is not essential. `python3 -m pip install .` will work just as well.
 
@@ -54,7 +54,7 @@ You should delete this file (`boilerplate.md`) from your project once you've set
 
 ## Linting
 
-You should ensure you either run `flake8` while writing the library, or use an IDE/Editor with linting.
+You should ensure you either run `ruff` while writing the library, or use an IDE/Editor with linting.
 
 All libraries (and example code) should stick to PEP8 style guides, although you can ignore long line warnings (E501) if you feel they're unwarranted.
 
@@ -65,7 +65,7 @@ make test-deps
 make qa
 ```
 
-`tox` will run `flake8`, in addition to `check-manifest` to ensure your GitHub repository and Python package are in sync, and `twine check` to ensure valid packages are being built.
+`tox` will run `ruff`, in addition to `check-manifest` to ensure your GitHub repository and Python package are in sync, and `twine check` to ensure valid packages are being built. It will also run `codespell` to spell-check your code. Both `ruff` and `codespell` can be run from the project root, and will pick up configuration from `pyproject.toml` if you need faster checks while you work.
 
 ## Testing
 
@@ -116,6 +116,10 @@ git remote add origin https://github.com/you_name/your_project
 
 Before deploying you should `make testdeploy` and verify that the package looks good and is installable from test PyPi.
 
+You can use `hatch version post` to bump the `.postN` version number if you need to make changes and preview them on test PyPi.
+
+Make sure to *remove* the `.postN` version before release, the Makefile will try to check this for you.
+
 You should also `make check` to catch common errors, including mismatched version numbers, trailing whitespace and DOS line-endings.
 
-Subsequent to deployment you should `git tag -a "vX.X.X" -m "Version X.X.X"` (or `make tag`) and `git push origin master --follow-tags` to tag a release on GitHub that matches the deployed code. If you're using branch protection, we'll assume you know how to amend these commands!
+Before deployment you should `git tag -a "vX.X.X" -m "Version X.X.X"` (or `make tag`). Once you're happy with the release you can `git push origin master --follow-tags` to tag a release on GitHub that matches the deployed code. If you're using branch protection, we'll assume you know how to amend these commands!
