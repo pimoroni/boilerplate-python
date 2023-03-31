@@ -1,4 +1,4 @@
-name: Python Build
+name: Build
 
 on:
   pull_request:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: Python ${{ matrix.python }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
