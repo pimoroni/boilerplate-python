@@ -60,6 +60,7 @@ include = [
 content-type = "text/markdown"
 fragments = [
   { path = "README.md" },
+  { text = "\n" },
   { path = "CHANGELOG.md" }
 ]
 
