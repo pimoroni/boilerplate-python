@@ -16,13 +16,11 @@ endif
 	@echo "check:        perform basic integrity checks on the codebase"
 	@echo "qa:           run linting and package QA"
 	@echo "pytest:       run Python test fixtures"
-	@echo "wheel:        build Python .whl files for distribution"
-	@echo "sdist:        build Python source distribution"
 	@echo "clean:        clean Python build and dist directories"
-	@echo "dist:         build all Python distribution files"
-	@echo "testdeploy:   build all and deploy to test PyPi"
-	@echo "deploy:       build all and deploy to PyPi"
-	@echo "tag:          tag the repository with the current version"
+	@echo "build:        build Python distribution files"
+	@echo "testdeploy:   build and upload to test PyPi"
+	@echo "deploy:       build and upload to PyPi"
+	@echo "tag:          tag the repository with the current version\n"
 
 install:
 	./install.sh --unstable
@@ -49,20 +47,14 @@ nopost:
 tag:
 	git tag -a "v${LIBRARY_VERSION}" -m "Version ${LIBRARY_VERSION}"
 
-wheel: check
-	hatch build --clean --target wheel
-
-sdist: check
-	hatch build --clean --target wheel
-
-dist: check
+build: check
 	@hatch build
 
 clean:
 	-rm -r dist
 
-testdeploy: dist
+testdeploy: build
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-deploy: nopost dist
+deploy: nopost build
 	twine upload dist/*
