@@ -45,15 +45,19 @@ path = "PROJECT_NAME/__init__.py"
 
 [tool.hatch.build]
 include = [
-    "/PROJECT_NAME",
-    "/README.md",
-    "/CHANGELOG.md",
+    "PROJECT_NAME",
+    "README.md",
+    "CHANGELOG.md",
     "LICENSE"
 ]
 
-[tool.hatch.build.targets.dist]
+[tool.hatch.build.targets.sdist]
 include = [
-    "/examples"
+    "*"
+]
+exclude = [
+    ".*",
+    "dist"
 ]
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
@@ -96,7 +100,8 @@ ignore = [
     'tox.ini',
     'tests/*',
     'examples/*',
-    '.coveragerc'
+    '.coveragerc',
+    'requirements-dev.txt'
 ]
 
 [pimoroni]
