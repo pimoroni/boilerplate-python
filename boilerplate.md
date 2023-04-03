@@ -13,6 +13,7 @@ The tooling uses `build` as the front-end, but this is not essential. `python3 -
 - [Linting](#linting)
 - [Testing](#testing)
 - [Examples](#examples)
+- [Install / Uninstall Scripts](#install--uninstall-scripts)
 - [Licensing](#licensing)
 - [Git Remotes](#git-remotes)
 - [Deployment](#deployment)
@@ -93,6 +94,10 @@ Press Ctrl+C to exit.
 
 """)
 ```
+
+## Install / Uninstall Scripts
+
+If your package directory (`PROJECT_NAME/`) differs from your library name, you should update `install.sh` and `uninstall.sh` and hard-code the correct library name.
 
 ## Licensing
 
