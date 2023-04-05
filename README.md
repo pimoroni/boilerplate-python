@@ -1,9 +1,11 @@
-# {{TITLE}}
+# __TITLE__
 
-[![Build Status](https://shields.io/github/workflow/status/pimoroni/{{LIBNAME}}-python/Python%20Tests.svg)](https://github.com/pimoroni/{{LIBNAME}}-python/actions/workflows/test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/pimoroni/{{LIBNAME}}-python/badge.svg?branch=master)](https://coveralls.io/github/pimoroni/{{LIBNAME}}-python?branch=master)
-[![PyPi Package](https://img.shields.io/pypi/v/{{LIBNAME}}.svg)](https://pypi.python.org/pypi/{{LIBNAME}})
-[![Python Versions](https://img.shields.io/pypi/pyversions/{{LIBNAME}}.svg)](https://pypi.python.org/pypi/{{LIBNAME}})
+[![Build Status](https://img.shields.io/github/actions/workflow/status/pimoroni/PROJECT_NAME-python/test.yml?branch=main)](https://github.com/pimoroni/PROJECT_NAME-python/actions/workflows/test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/pimoroni/PROJECT_NAME-python/badge.svg?branch=master)](https://coveralls.io/github/pimoroni/PROJECT_NAME-python?branch=master)
+[![PyPi Package](https://img.shields.io/pypi/v/PROJECT_NAME.svg)](https://pypi.python.org/pypi/PROJECT_NAME)
+[![Python Versions](https://img.shields.io/pypi/pyversions/PROJECT_NAME.svg)](https://pypi.python.org/pypi/PROJECT_NAME)
+
+Generated from [the Pimoroni Python Boilerplate](https://github.com/pimoroni/boilerplate-python).
 
 # Pre-requisites
 
@@ -18,13 +20,13 @@ You can optionally run `sudo raspi-config` or the graphical Raspberry Pi Configu
 
 Stable library from PyPi:
 
-* Just run `pip3 install {{LIBNAME}}`
+* Just run `pip3 install PROJECT_NAME`
 
 In some cases you may need to use `sudo` or install pip with: `sudo apt install python3-pip`
 
 Latest/development library from GitHub:
 
-* `git clone https://github.com/pimoroni/{{LIBNAME}}-python`
-* `cd {{LIBNAME}}-python`
+* `git clone https://github.com/pimoroni/PROJECT_NAME-python`
+* `cd PROJECT_NAME-python`
 * `sudo ./install.sh`
 
