@@ -28,5 +28,5 @@ Latest/development library from GitHub:
 
 * `git clone https://github.com/pimoroni/PROJECT_NAME-python`
 * `cd PROJECT_NAME-python`
-* `sudo ./install.sh`
+* `./install.sh --unstable`
 
