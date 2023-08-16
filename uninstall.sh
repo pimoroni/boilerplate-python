@@ -7,7 +7,7 @@ PYTHON="/usr/bin/python3"
 
 user_check() {
 	if [ $(id -u) -eq 0 ]; then
-		printf "Script should not be run as root. Try './install.sh'\n"
+		printf "Script should not be run as root. Try './uninstall.sh'\n"
 		exit 1
 	fi
 }
