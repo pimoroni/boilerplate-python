@@ -5,6 +5,7 @@ DATESTAMP=`date "+%Y-%m-%d-%H-%M-%S"`
 CONFIG_BACKUP=false
 APT_HAS_UPDATED=false
 RESOURCES_TOP_DIR=$HOME/Pimoroni
+PY_VENV_DIR=$RESOURCES_TOP_DIR/venv
 WD=`pwd`
 USAGE="./install.sh (--unstable)"
 POSITIONAL_ARGS=()
@@ -12,14 +13,6 @@ FORCE=false
 UNSTABLE=false
 PYTHON="python"
 
-
-venv_check() {
-	PYTHON_BIN=`which $PYTHON`
-	if [[ $VIRTUAL_ENV == "" ]] || [[ $PYTHON_BIN != $VIRTUAL_ENV* ]]; then
-		printf "This script should be run in a virtual Python environment.\n"
-		exit 1
-	fi	       
-}
 
 user_check() {
 	if [ $(id -u) -eq 0 ]; then
@@ -60,6 +53,28 @@ inform() {
 
 warning() {
 	echo -e "$(tput setaf 1)$1$(tput sgr0)"
+}
+
+venv_check() {
+	PYTHON_BIN=`which $PYTHON`
+	if [[ $VIRTUAL_ENV == "" ]] || [[ $PYTHON_BIN != $VIRTUAL_ENV* ]]; then
+		printf "This script should be run in a virtual Python environment.\n"
+		if confirm "Would you like us to create one for you?"; then
+			if [ ! -f $PY_VENV_DIR/bin/activate ]; then
+				inform "Creating virtual Python environment in $PY_VENV_DIR, please wait...\n"
+				mkdir -p $PY_VENV_DIR
+				/usr/bin/python3 -m venv $PY_VENV_DIR --system-site-packages
+			else
+				inform "Found existing virtual Python environment in $PY_VENV_DIR\n"
+			fi
+			inform "Activating virtual Python environment in $PY_VENV_DIR..."
+			inform "source $PY_VENV_DIR/bin/activate\n"
+			source $PY_VENV_DIR/bin/activate
+
+		else
+			exit 1
+		fi
+	fi
 }
 
 function do_config_backup {
@@ -136,7 +151,7 @@ done
 user_check
 venv_check
 
-if [ ! -f "$PYTHON" ]; then
+if [ ! -f `which $PYTHON` ]; then
 	printf "Python path $PYTHON not found!\n"
 	exit 1
 fi
