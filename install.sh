@@ -10,8 +10,16 @@ USAGE="./install.sh (--unstable)"
 POSITIONAL_ARGS=()
 FORCE=false
 UNSTABLE=false
-PYTHON="/usr/bin/python3"
+PYTHON="python"
 
+
+venv_check() {
+	PYTHON_BIN=`which $PYTHON`
+	if [[ $VIRTUAL_ENV == "" ]] || [[ $PYTHON_BIN != $VIRTUAL_ENV* ]]; then
+		printf "This script should be run in a virtual Python environment.\n"
+		exit 1
+	fi	       
+}
 
 user_check() {
 	if [ $(id -u) -eq 0 ]; then
@@ -126,6 +134,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 user_check
+venv_check
 
 if [ ! -f "$PYTHON" ]; then
 	printf "Python path $PYTHON not found!\n"
@@ -179,6 +188,7 @@ printf "It's recommended you run these steps manually.\n"
 printf "If you want to run the full script, open it in\n"
 printf "an editor and remove 'exit 1' from below.\n"
 exit 1
+source $VIRTUAL_ENV/bin/activate
 EOF
 
 if $UNSTABLE; then
