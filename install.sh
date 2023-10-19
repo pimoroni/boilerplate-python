@@ -55,6 +55,23 @@ warning() {
 	echo -e "$(tput setaf 1)$1$(tput sgr0)"
 }
 
+venv_bash_snippet() {
+	if [ ! -f $BASH_SNIPPET ]; then
+		cat << EOF > $BASH_SNIPPET
+# Add `source $RESOURCES_DIR/auto_venv.sh` to your ~/.bashrc to activate
+# the Pimoroni virtual environment automagically!
+PY_ENV_DIR=~/Pimoroni/venv
+if [ ! -f \$PY_ENV_DIR/bin/activate ]; then
+  printf "Creating user Python environment in \$PY_ENV_DIR, please wait...\n"
+  mkdir -p \$PY_ENV_DIR
+  python3 -m venv --system-site-packages --prompt Pimoroni \$PY_ENV_DIR
+fi
+printf " ↓ ↓ ↓ ↓   Hello, we've activated a Python venv for you. To exit, type \"deactivate\".\n"
+source \$PY_ENV_DIR/bin/activate
+EOF
+	fi
+}
+
 venv_check() {
 	PYTHON_BIN=`which $PYTHON`
 	if [[ $VIRTUAL_ENV == "" ]] || [[ $PYTHON_BIN != $VIRTUAL_ENV* ]]; then
@@ -63,7 +80,8 @@ venv_check() {
 			if [ ! -f $PY_VENV_DIR/bin/activate ]; then
 				inform "Creating virtual Python environment in $PY_VENV_DIR, please wait...\n"
 				mkdir -p $PY_VENV_DIR
-				/usr/bin/python3 -m venv $PY_VENV_DIR --system-site-packages
+				/usr/bin/python3 -m venv $PY_VENV_DIR --system-site-packages --prompt Pimoroni
+				venv_bash_snippet()
 			else
 				inform "Found existing virtual Python environment in $PY_VENV_DIR\n"
 			fi
@@ -188,6 +206,7 @@ eval $CONFIG_VARS
 
 RESOURCES_DIR=$RESOURCES_TOP_DIR/$LIBRARY_NAME
 UNINSTALLER=$RESOURCES_DIR/uninstall.sh
+BASH_SNIPPET=$RESOURCES_DIR/auto_venv.sh
 
 RES_DIR_OWNER=`stat -c "%U" $RESOURCES_TOP_DIR`
 
