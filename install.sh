@@ -5,7 +5,8 @@ DATESTAMP=`date "+%Y-%m-%d-%H-%M-%S"`
 CONFIG_BACKUP=false
 APT_HAS_UPDATED=false
 RESOURCES_TOP_DIR=$HOME/Pimoroni
-PY_VENV_DIR=$HOME/.virtualenvs/pimoroni
+VENV_BASH_SNIPPET=$RESOURCES_DIR/auto_venv.sh
+VENV_DIR=$HOME/.virtualenvs/pimoroni
 WD=`pwd`
 USAGE="./install.sh (--unstable)"
 POSITIONAL_ARGS=()
@@ -56,18 +57,18 @@ warning() {
 }
 
 venv_bash_snippet() {
-	if [ ! -f $BASH_SNIPPET ]; then
-		cat << EOF > $BASH_SNIPPET
+	if [ ! -f $VENV_BASH_SNIPPET ]; then
+		cat << EOF > $VENV_BASH_SNIPPET
 # Add `source $RESOURCES_DIR/auto_venv.sh` to your ~/.bashrc to activate
 # the Pimoroni virtual environment automagically!
-PY_VENV_DIR="$PY_VENV_DIR"
-if [ ! -f \$PY_VENV_DIR/bin/activate ]; then
-  printf "Creating user Python environment in \$PY_VENV_DIR, please wait...\n"
-  mkdir -p \$PY_VENV_DIR
-  python3 -m venv --system-site-packages \$PY_VENV_DIR
+VENV_DIR="$VENV_DIR"
+if [ ! -f \$VENV_DIR/bin/activate ]; then
+  printf "Creating user Python environment in \$VENV_DIR, please wait...\n"
+  mkdir -p \$VENV_DIR
+  python3 -m venv --system-site-packages \$VENV_DIR
 fi
 printf " ↓ ↓ ↓ ↓   Hello, we've activated a Python venv for you. To exit, type \"deactivate\".\n"
-source \$PY_VENV_DIR/bin/activate
+source \$VENV_DIR/bin/activate
 EOF
 	fi
 }
@@ -77,17 +78,17 @@ venv_check() {
 	if [[ $VIRTUAL_ENV == "" ]] || [[ $PYTHON_BIN != $VIRTUAL_ENV* ]]; then
 		printf "This script should be run in a virtual Python environment.\n"
 		if confirm "Would you like us to create one for you?"; then
-			if [ ! -f $PY_VENV_DIR/bin/activate ]; then
-				inform "Creating virtual Python environment in $PY_VENV_DIR, please wait...\n"
-				mkdir -p $PY_VENV_DIR
-				/usr/bin/python3 -m venv $PY_VENV_DIR --system-site-packages Pimoroni
-				venv_bash_snippet()
+			if [ ! -f $VENV_DIR/bin/activate ]; then
+				inform "Creating virtual Python environment in $VENV_DIR, please wait...\n"
+				mkdir -p $VENV_DIR
+				/usr/bin/python3 -m venv $VENV_DIR --system-site-packages
+				venv_bash_snippet
 			else
-				inform "Found existing virtual Python environment in $PY_VENV_DIR\n"
+				inform "Found existing virtual Python environment in $VENV_DIR\n"
 			fi
-			inform "Activating virtual Python environment in $PY_VENV_DIR..."
-			inform "source $PY_VENV_DIR/bin/activate\n"
-			source $PY_VENV_DIR/bin/activate
+			inform "Activating virtual Python environment in $VENV_DIR..."
+			inform "source $VENV_DIR/bin/activate\n"
+			source $VENV_DIR/bin/activate
 
 		else
 			exit 1
@@ -185,7 +186,7 @@ pip_pkg_install toml
 CONFIG_VARS=`$PYTHON - <<EOF
 import toml
 config = toml.load("pyproject.toml")
-p = dict(config['pimoroni'])
+p = dict(config['tool']['pimoroni'])
 # Convert list config entries into bash arrays
 for k, v in p.items():
     v = "'\n\t'".join(v)
@@ -206,7 +207,6 @@ eval $CONFIG_VARS
 
 RESOURCES_DIR=$RESOURCES_TOP_DIR/$LIBRARY_NAME
 UNINSTALLER=$RESOURCES_DIR/uninstall.sh
-BASH_SNIPPET=$RESOURCES_DIR/auto_venv.sh
 
 RES_DIR_OWNER=`stat -c "%U" $RESOURCES_TOP_DIR`
 
