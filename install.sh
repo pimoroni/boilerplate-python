@@ -64,13 +64,13 @@ find_config() {
 			warning "Could not find $CONFIG_FILE!"
 			exit 1
 		fi
-    else
-        if [ -f "/boot/$CONFIG_FILE" ] && [ ! -L "/boot/$CONFIG_FILE" ]; then
-            warning "Oops! It looks like /boot/$CONFIG_FILE is not a link to $CONFIG_DIR/$CONFIG_FILE"
-            warning "You might want to fix this!"
-        fi
+	else
+		if [ -f "/boot/$CONFIG_FILE" ] && [ ! -L "/boot/$CONFIG_FILE" ]; then
+			warning "Oops! It looks like /boot/$CONFIG_FILE is not a link to $CONFIG_DIR/$CONFIG_FILE"
+			warning "You might want to fix this!"
+		fi
 	fi
-    inform "Using $CONFIG_FILE in $CONFIG_DIR"
+	inform "Using $CONFIG_FILE in $CONFIG_DIR"
 }
 
 venv_bash_snippet() {
