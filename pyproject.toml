@@ -108,6 +108,6 @@ ignore = [
 ]
 
 [tool.pimoroni]
-apt_packages = ["python3-rpi.gpio", "python3-smbus"]
+apt_packages = ["git"]
 configtxt = []
-commands = []
+commands = ["false"]
