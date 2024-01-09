@@ -33,3 +33,7 @@ jobs:
       - name: Run Code Checks
         run: |
           make check
+
+      - name: Run Bash Code Checks
+        run: |
+          make shellcheck
