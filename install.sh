@@ -126,7 +126,7 @@ function do_config_backup {
 		CONFIG_BACKUP=true
 		FILENAME="config.preinstall-$LIBRARY_NAME-$DATESTAMP.txt"
 		inform "Backing up $CONFIG_DIR/$CONFIG_FILE to $CONFIG_DIR/$FILENAME\n"
-		sudo cp "$CONFIG_DIR/$CONFIG_FILE $CONFIG_DIR/$FILENAME"
+		sudo cp "$CONFIG_DIR/$CONFIG_FILE" "$CONFIG_DIR/$FILENAME"
 		mkdir -p "$RESOURCES_TOP_DIR/config-backups/"
 		cp $CONFIG_DIR/$CONFIG_FILE "$RESOURCES_TOP_DIR/config-backups/$FILENAME"
 		if [ -f "$UNINSTALLER" ]; then
