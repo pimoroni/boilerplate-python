@@ -301,7 +301,9 @@ for ((i = 0; i < ${#SETUP_CMDS[@]}; i++)); do
 	if [[ "$CMD" == *"raspi-config"* ]] || [[ "$CMD" == *"$CONFIG_DIR/$CONFIG_FILE"* ]] || [[ "$CMD" == *"\$CONFIG_DIR/\$CONFIG_FILE"* ]]; then
 		do_config_backup
 	fi
-	printf "\"%s\"\n" "$CMD"
+	if [[ ! "$CMD" == printf* ]]; then
+		printf "Running: \"%s\"\n" "$CMD"
+	fi
 	eval "$CMD"
 	check_for_error
 done
