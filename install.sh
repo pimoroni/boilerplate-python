@@ -117,7 +117,7 @@ venv_check() {
 check_for_error() {
 	if [ $? -ne 0 ]; then
 		CMD_ERRORS=true
-		warning "^^^ 😬"
+		warning "^^^ 😬 previous command did not exit cleanly!"
 	fi
 }
 
@@ -290,14 +290,18 @@ fi
 
 find_config
 
+printf "\n"
+
 # Run the setup commands from pyproject.toml / tool.pimoroni.commands
 
+inform "Running setup commands...\n"
 for ((i = 0; i < ${#SETUP_CMDS[@]}; i++)); do
 	CMD="${SETUP_CMDS[$i]}"
 	# Attempt to catch anything that touches config.txt and trigger a backup
 	if [[ "$CMD" == *"raspi-config"* ]] || [[ "$CMD" == *"$CONFIG_DIR/$CONFIG_FILE"* ]] || [[ "$CMD" == *"\$CONFIG_DIR/\$CONFIG_FILE"* ]]; then
 		do_config_backup
 	fi
+	printf "\"%s\"\n" "$CMD"
 	eval "$CMD"
 	check_for_error
 done
