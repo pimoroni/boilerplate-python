@@ -1,7 +1,7 @@
 # __TITLE__
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/pimoroni/PROJECT_NAME-python/test.yml?branch=main)](https://github.com/pimoroni/PROJECT_NAME-python/actions/workflows/test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/pimoroni/PROJECT_NAME-python/badge.svg?branch=master)](https://coveralls.io/github/pimoroni/PROJECT_NAME-python?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/pimoroni/PROJECT_NAME-python/badge.svg?branch=main)](https://coveralls.io/github/pimoroni/PROJECT_NAME-python?branch=main)
 [![PyPi Package](https://img.shields.io/pypi/v/PROJECT_NAME.svg)](https://pypi.python.org/pypi/PROJECT_NAME)
 [![Python Versions](https://img.shields.io/pypi/pyversions/PROJECT_NAME.svg)](https://pypi.python.org/pypi/PROJECT_NAME)
 
