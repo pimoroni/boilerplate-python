@@ -95,6 +95,14 @@ Press Ctrl+C to exit.
 """)
 ```
 
+If your examples need additional dependencies, then list them in:
+
+```
+requirements-examples.txt
+```
+
+Otherwise, just delete this file to avoid unnecessarily prompting the user.
+
 ## Install / Uninstall Scripts
 
 If your package directory (`PROJECT_NAME/`) differs from your library name, you should update `install.sh` and `uninstall.sh` and hard-code the correct library name.
