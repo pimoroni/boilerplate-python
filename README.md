@@ -66,5 +66,5 @@ You can optionally run `sudo raspi-config` or the graphical Raspberry Pi Configu
 Some of the examples have additional dependencies. You can install them with:
 
 ```bash
-pip install
+pip install -r requirements-examples.txt
 ```
