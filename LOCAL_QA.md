@@ -19,6 +19,7 @@ docker build -f Dockerfile.testing \
 > The testing version is independent of any library release. Start at `v0.0.1` and
 > increment: patch for dependency bumps/minor tweaks, minor for new tools or a Python
 > version bump, major for breaking changes to the dev workflow.
+> Current tag: `boilerplate-dev:python3.11-v0.0.1`
 
 ## Run checks
 
@@ -52,9 +53,10 @@ docker run --rm -v "$(pwd)":/app boilerplate-dev:python3.11-v0.0.1 make pytest
 ## Dependency lock file
 
 The image installs from `requirements-dev.lock`. Regenerate it when `requirements-dev.txt`
-changes:
+changes, using the same uv version as the Dockerfile `FROM` pin:
 
 ```bash
+uv self update 0.11.17  # align host uv with Dockerfile pin
 uv pip compile requirements-dev.txt --output-file requirements-dev.lock --python-version 3.11
 ```
 
