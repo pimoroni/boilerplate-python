@@ -19,7 +19,6 @@ docker build -f Dockerfile.testing \
 > The testing version is independent of any library release. Start at `v0.0.1` and
 > increment: patch for dependency bumps/minor tweaks, minor for new tools or a Python
 > version bump, major for breaking changes to the dev workflow.
-> Current tag: `boilerplate-dev:python3.11-v0.0.1`
 
 ## Run checks
 
