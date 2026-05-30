@@ -45,7 +45,7 @@ WORKDIR /app
 COPY requirements-dev.lock ./
 RUN uv pip install --system --no-cache -r requirements-dev.lock
 
-COPY . .
+COPY --chown=appuser:appuser . .
 
 USER appuser
 
