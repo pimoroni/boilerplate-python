@@ -35,7 +35,7 @@
 #     make check
 
 # ── Global build args ─────────────────────────────────────────────────────────
-# Defaults live here; each stage re-declares with a bare ARG to inherit them.
+# Defaults live here; each stage redeclares with a bare ARG to inherit them.
 ARG UID=1000
 ARG GID=1000
 
