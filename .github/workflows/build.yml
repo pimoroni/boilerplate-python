@@ -13,6 +13,12 @@ jobs:
     strategy:
       matrix:
         python: ['3.9', '3.10', '3.11', '3.13']
+        build_cmd: ['hatch build']
+        include:
+          - python: '3.9'
+            # hatch build creates a virtualenv that has dropped the propose_interpreters
+            # API used by hatch on Python 3.9. Use python -m build (stdlib venv) instead.
+            build_cmd: 'python -m build'
 
     env:
       TERM: xterm-256color
@@ -33,7 +39,8 @@ jobs:
 
       - name: Build Packages
         run: |
-          make build
+          make check
+          ${{ matrix.build_cmd }}
 
       - name: Upload Packages
         uses: actions/upload-artifact@v4
