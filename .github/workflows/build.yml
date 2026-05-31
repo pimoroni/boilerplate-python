@@ -13,12 +13,6 @@ jobs:
     strategy:
       matrix:
         python: ['3.9', '3.10', '3.11', '3.13']
-        build_cmd: ['hatch build']
-        include:
-          - python: '3.9'
-            # hatch build creates a virtualenv that has dropped the propose_interpreters
-            # API used by hatch on Python 3.9. Use python -m build (stdlib venv) instead.
-            build_cmd: 'python -m build'
 
     env:
       TERM: xterm-256color
@@ -38,9 +32,18 @@ jobs:
           make dev-deps
 
       - name: Build Packages
+        if: matrix.python != '3.9'
+        run: |
+          make build
+
+      - name: Build Packages (Python 3.9)
+        if: matrix.python == '3.9'
+        # hatch build fails on Python 3.9: the installed virtualenv dropped the
+        # propose_interpreters API that hatch depends on. python -m build uses
+        # stdlib venv instead and is unaffected. All other versions use hatch build.
         run: |
           make check
-          ${{ matrix.build_cmd }}
+          python -m build
 
       - name: Upload Packages
         uses: actions/upload-artifact@v4
