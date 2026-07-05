@@ -43,6 +43,19 @@ example-depends = ["requirements-examples.txt"]
 GitHub = "https://www.github.com/pimoroni/PROJECT_NAME-python"
 Homepage = "https://www.pimoroni.com"
 
+[dependency-groups]
+dev = [
+    "check-manifest",
+    "ruff",
+    "codespell",
+    "twine",
+    "hatch",
+    "hatch-fancy-pypi-readme",
+    "hatch-requirements-txt",
+    "tox",
+    "pdoc",
+]
+
 [tool.hatch.version]
 path = "PROJECT_NAME/__init__.py"
 
@@ -106,8 +119,7 @@ ignore = [
     'tox.ini',
     'tests/*',
     'examples/*',
-    '.coveragerc',
-    'requirements-dev.txt'
+    '.coveragerc'
 ]
 
 [tool.pimoroni]

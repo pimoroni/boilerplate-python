@@ -32,7 +32,7 @@ uninstall:
 	./uninstall.sh
 
 dev-deps:
-	python3 -m pip install -r requirements-dev.txt
+	python3 -m pip install --group dev
 	sudo apt install dos2unix shellcheck
 
 check:
