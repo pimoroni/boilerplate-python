@@ -25,18 +25,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v5
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
         with:
+          enable-cache: true
           python-version: ${{ matrix.python }}
-
-      - name: Install Dependencies
-        run: |
-          make dev-deps
 
       - name: Build Packages
         run: |
-          make build
+          uv run make build
 
       - name: Upload Packages
         uses: actions/upload-artifact@v4
