@@ -65,7 +65,7 @@ tag: version
 	git tag -a "v${LIBRARY_VERSION}" -m "Version ${LIBRARY_VERSION}"
 
 build: check
-	@hatch build
+	uv build
 
 clean:
 	-rm -r dist
