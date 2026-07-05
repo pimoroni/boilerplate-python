@@ -115,14 +115,15 @@ skip = """
 [tool.check-manifest]
 ignore = [
     'boilerplate.md',
-    'check.sh',
     'install.sh',
     'uninstall.sh',
     'Makefile',
     'tox.ini',
     'tests/*',
     'examples/*',
-    '.coveragerc'
+    '.coveragerc',
+    '.editorconfig',
+    '.pre-commit-config.yaml'
 ]
 
 [tool.pimoroni]

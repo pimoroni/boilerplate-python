@@ -34,6 +34,6 @@ jobs:
         run: |
           uv run make check
 
-      - name: Run Bash Code Checks
+      - name: Run Pre-Commit
         run: |
-          make shellcheck
+          uv run pre-commit run --all-files
