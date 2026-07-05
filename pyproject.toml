@@ -83,6 +83,9 @@ exclude = [
 ]
 line-length = 200
 
+[tool.ruff.lint]
+extend-select = ["I"]
+
 [tool.codespell]
 skip = """
 ./.tox,\
@@ -92,9 +95,6 @@ skip = """
 ./build,\
 ./dist.\
 """
-
-[tool.isort]
-line_length = 200
 
 [tool.check-manifest]
 ignore = [
