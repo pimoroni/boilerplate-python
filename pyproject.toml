@@ -48,6 +48,7 @@ dev = [
     "check-manifest",
     "ruff",
     "codespell",
+    "pre-commit",
     "twine",
     "hatch",
     "hatch-fancy-pypi-readme",
@@ -103,11 +104,12 @@ extend-select = ["I"]
 [tool.codespell]
 skip = """
 ./.tox,\
+./.venv,\
 ./.egg,\
 ./.git,\
 ./__pycache__,\
 ./build,\
-./dist.\
+./dist\
 """
 
 [tool.check-manifest]
