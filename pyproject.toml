@@ -63,9 +63,6 @@ path = "PROJECT_NAME/__init__.py"
 [tool.hatch.build]
 include = [
     "PROJECT_NAME",
-    "README.md",
-    "CHANGELOG.md",
-    "LICENSE",
     "requirements-examples.txt"
 ]
 
