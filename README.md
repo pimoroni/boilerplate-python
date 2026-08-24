@@ -15,7 +15,7 @@ product description goes here
 
 # Installing
 
-We'd recommend using this library with Raspberry Pi OS Bookworm or later. It requires Python ≥3.7.
+We'd recommend using this library with Raspberry Pi OS Bookworm or later. It requires Python ≥3.9.
 
 ## Full install (recommended):
 
